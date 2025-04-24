@@ -53,7 +53,7 @@ void performTask2(){
     int capacity;
 
     printf("Enter the maximum size of the deque: ");
-    scanf("%d", &capacity);
+    setNumber(&capacity);
 
     initializeDeque(&deque, capacity);
 
@@ -64,12 +64,12 @@ void performTask2(){
         printf("2. Print the deque\n");
         printf("3. Exit\n");
         printf("Enter your choice: ");
-        scanf("%d", &choice);
+        choice = getch();
 
         switch (choice) {
             case 1:
                 printf("Enter a number to add: ");
-                scanf("%d", &num);
+                setNumber(&num);
                 processInput(&deque, num);
                 break;
             case 2:

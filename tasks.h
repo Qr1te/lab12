@@ -8,3 +8,5 @@
 #endif //LAB12_TASKS_H
 void performTask1();
 void performTask2();
+void performTask3();
+void menu();

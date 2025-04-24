@@ -2,6 +2,6 @@
 #include "tasks.h"
 
 int main() {
-    performTask2();
+    menu();
     return 0;
 }
