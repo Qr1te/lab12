@@ -4,7 +4,7 @@
 
 #include "tasks.h"
 #include "functions.h"
-void performTask1(){
+void processQueue(){
     int capacity;
     printf("Enter max size of queue: ");
     scanf_s("%d", &capacity);
@@ -48,49 +48,51 @@ void performTask1(){
     puts("Press any key to return..."), _getch();
 }
 
-void performTask2(){
+void processDeque(){
     Deque deque;
     int capacity;
 
-    printf("Enter the maximum size of the deque: ");
+    printf("Enter deque capacity: ");
     setNumber(&capacity);
 
     initializeDeque(&deque, capacity);
 
     int choice, num;
     while (1) {
+        system("cls");
         printf("\nMenu:\n");
-        printf("1. Add a number to the deque\n");
-        printf("2. Print the deque\n");
+        printf("1. Add number\n");
+        printf("2. Print deque\n");
         printf("3. Exit\n");
-        printf("Enter your choice: ");
-        choice = getch();
+
+        choice = _getch();
 
         switch (choice) {
-            case 1:
-                printf("Enter a number to add: ");
+            case '1':
+                printf("Enter number: ");
                 setNumber(&num);
                 processInput(&deque, num);
+                puts("Press any key to return..."), _getch();
                 break;
-            case 2:
+
+            case '2':
                 printDeque(&deque);
+                puts("Press any key to return..."), _getch();
                 break;
-            case 3:
+            case '3':
 
                 while (!isEmpty(&deque)) {
                     removeFront(&deque);
                 }
-                printf("Exiting program.\n");
-                exit(0);
+                printf("Program terminated\n");
+                puts("Press any key to return..."), _getch();
+
             default:
-                printf("Invalid choice. Please try again.\n");
+                printf("Invalid choice\n");
         }
-        puts("Press any key to return..."), _getch();
-    }
+}}
 
-}
-
-void performTask3(){
+void compareQueues(){
     int capacity, capacity1;
     printf("Enter max size of first queue: \n");
     setNumber(&capacity);
@@ -129,17 +131,17 @@ void menu(){
         system("cls");
         answer = 0;
         printf("Choose what u want to do\n");
-        printf("1. perform task 1.\n2. perform task 2\n3. perform task 3\n4.Exit.\n");
+        printf("1. Work with queue \n2. Work with deque \n3. compare queues \n4.Exit.\n");
 
         while (answer < '1' || answer > '4') answer = _getch();
         if (answer == '1'){
-            performTask1();
+            processQueue();
         }
         else if (answer == '2') {
-            performTask2();
+            processDeque();
         }
         else if (answer == '3') {
-            performTask3();
+            compareQueues();
         }
     } while (answer != '4');
 }

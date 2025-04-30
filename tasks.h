@@ -6,7 +6,7 @@
 #define LAB12_TASKS_H
 
 #endif //LAB12_TASKS_H
-void performTask1();
-void performTask2();
-void performTask3();
+void processQueue();
+void processDeque();
+void compareQueues();
 void menu();

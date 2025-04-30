@@ -170,10 +170,12 @@ void freeQueue(Queue* q) {
     }
 }
 
+
+
 DequeNode* createNode(int num) {
     DequeNode* newNode = (DequeNode*)malloc(sizeof(DequeNode));
     if (newNode == NULL) {
-        printf("Memory allocation failed\n");
+        printf("Memory allocation error\n");
         exit(1);
     }
     newNode->num = num;
@@ -193,30 +195,15 @@ int isEmpty(Deque* deque) {
     return deque->size == 0;
 }
 
+
 int isFull(Deque* deque) {
     return deque->size == deque->capacity;
 }
 
-void addFront(Deque* deque, int num) {
-    if (isFull(deque)) {
-        printf("Deque is full. Cannot add to front.\n");
-        return;
-    }
-
-    DequeNode* newNode = createNode(num);
-    if (isEmpty(deque)) {
-        deque->front = deque->rear = newNode;
-    } else {
-        newNode->next = deque->front;
-        deque->front->prev = newNode;
-        deque->front = newNode;
-    }
-    deque->size++;
-}
 
 void addRear(Deque* deque, int num) {
     if (isFull(deque)) {
-        printf("Deque is full. Cannot add to rear.\n");
+        printf("Deque is full\n");
         return;
     }
 
@@ -231,9 +218,10 @@ void addRear(Deque* deque, int num) {
     deque->size++;
 }
 
+
 int removeFront(Deque* deque) {
     if (isEmpty(deque)) {
-        printf("Deque is empty. Cannot remove from front.\n");
+        printf("Deque is empty\n");
         return -1;
     }
 
@@ -252,34 +240,14 @@ int removeFront(Deque* deque) {
     return num;
 }
 
-int removeRear(Deque* deque) {
-    if (isEmpty(deque)) {
-        printf("Deque is empty. Cannot remove from rear.\n");
-        return -1;
-    }
-
-    DequeNode* temp = deque->rear;
-    int num = temp->num;
-
-    if (deque->front == deque->rear) {
-        deque->front = deque->rear = NULL;
-    } else {
-        deque->rear = deque->rear->prev;
-        deque->rear->next = NULL;
-    }
-
-    free(temp);
-    deque->size--;
-    return num;
-}
 
 void printDeque(Deque* deque) {
     if (isEmpty(deque)) {
-        printf("Deque is empty.\n");
+        printf("Deque is empty\n");
         return;
     }
 
-    printf("Deque contents (front to rear): ");
+    printf("Deque (front to rear): ");
     DequeNode* current = deque->front;
     while (current != NULL) {
         printf("%d ", current->num);
@@ -288,21 +256,22 @@ void printDeque(Deque* deque) {
     printf("\n");
 }
 
+
 void processInput(Deque* deque, int num) {
-    if (isEmpty(deque)) {
+    if (!isFull(deque)) {
+
         addRear(deque, num);
-        return;
-    }
-
-    int removed = removeFront(deque);
-    printf("Removed element from front: %d\n", removed);
-
-
-    if (removed != num) {
-        addRear(deque, num);
-        printf("Added element to rear: %d\n", num);
+        printf("Added %d to rear (normal mode)\n", num);
     } else {
-        printf("New element %d matches removed element, not adding to deque\n", num);
+        int removed = removeFront(deque);
+        printf("Removed %d from front (special mode)\n", removed);
+
+        if (removed != num) {
+            addRear(deque, num);
+            printf("Added %d to rear (special mode)\n", num);
+        } else {
+            printf("%d equals removed element, not added\n", num);
+        }
     }
 }
 
